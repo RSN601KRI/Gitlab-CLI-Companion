@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "glc"
+version = "0.1.0"
+description = "GitLab DevOps Companion CLI"
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+    "typer",
+    "gitpython",
+    "requests",
+    "networkx",
+    "python-dotenv",
+    "pyyaml",
+    "rich"
+]
+
+[project.scripts]
+glc = "glc.main:app"

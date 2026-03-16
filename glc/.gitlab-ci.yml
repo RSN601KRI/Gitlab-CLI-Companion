@@ -1,0 +1,12 @@
+build:
+  stage: build
+  script:
+  - echo "Run commands for Build"
+test:
+  stage: test
+  script:
+  - echo "Run commands for Test"
+deploy:
+  stage: deploy
+  script:
+  - echo "Run commands for Deploy"

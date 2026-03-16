@@ -1,0 +1,152 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "repository",
+      "label": "Repository",
+      "id": "repository"
+    },
+    {
+      "type": "jenkinsfile",
+      "label": "Jenkinsfile",
+      "id": "Jenkinsfile"
+    },
+    {
+      "type": "gitlab_ci",
+      "label": ".gitlab-ci.yml",
+      "id": ".gitlab-ci.yml"
+    },
+    {
+      "type": "pipeline",
+      "label": "gitlab_ci_pipeline",
+      "id": "pipeline:gitlab_ci_pipeline"
+    },
+    {
+      "type": "job",
+      "label": "build",
+      "stage": "build",
+      "id": "job:build"
+    },
+    {
+      "type": "job",
+      "label": "test",
+      "stage": "test",
+      "id": "job:test"
+    },
+    {
+      "type": "job",
+      "label": "deploy",
+      "stage": "deploy",
+      "id": "job:deploy"
+    },
+    {
+      "type": "security_issue",
+      "file": ".env",
+      "line": 1,
+      "issue": "Hardcoded API_KEY",
+      "severity": "High",
+      "id": "issue:.env:1"
+    },
+    {
+      "id": ".env"
+    },
+    {
+      "type": "security_issue",
+      "file": ".env",
+      "line": 2,
+      "issue": "Hardcoded SECRET",
+      "severity": "High",
+      "id": "issue:.env:2"
+    },
+    {
+      "type": "security_issue",
+      "file": ".env",
+      "line": 4,
+      "issue": "Hardcoded AWS_ACCESS_KEY_ID",
+      "severity": "High",
+      "id": "issue:.env:4"
+    },
+    {
+      "type": "security_issue",
+      "file": ".env",
+      "line": 5,
+      "issue": "Hardcoded AWS_SECRET_ACCESS_KEY",
+      "severity": "High",
+      "id": "issue:.env:5"
+    },
+    {
+      "type": "documentation",
+      "label": "README.md",
+      "id": "README.md"
+    },
+    {
+      "type": "documentation",
+      "label": "CONTRIBUTING.md",
+      "id": "CONTRIBUTING.md"
+    },
+    {
+      "type": "documentation",
+      "label": "ARCHITECTURE.md",
+      "id": "ARCHITECTURE.md"
+    }
+  ],
+  "links": [
+    {
+      "type": "has_documentation",
+      "source": "repository",
+      "target": "README.md"
+    },
+    {
+      "type": "has_documentation",
+      "source": "repository",
+      "target": "CONTRIBUTING.md"
+    },
+    {
+      "type": "has_documentation",
+      "source": "repository",
+      "target": "ARCHITECTURE.md"
+    },
+    {
+      "type": "migrates_to",
+      "source": "Jenkinsfile",
+      "target": "pipeline:gitlab_ci_pipeline"
+    },
+    {
+      "type": "contains",
+      "source": "pipeline:gitlab_ci_pipeline",
+      "target": "job:build"
+    },
+    {
+      "type": "contains",
+      "source": "pipeline:gitlab_ci_pipeline",
+      "target": "job:test"
+    },
+    {
+      "type": "contains",
+      "source": "pipeline:gitlab_ci_pipeline",
+      "target": "job:deploy"
+    },
+    {
+      "type": "has_issue",
+      "source": ".env",
+      "target": "issue:.env:1"
+    },
+    {
+      "type": "has_issue",
+      "source": ".env",
+      "target": "issue:.env:2"
+    },
+    {
+      "type": "has_issue",
+      "source": ".env",
+      "target": "issue:.env:4"
+    },
+    {
+      "type": "has_issue",
+      "source": ".env",
+      "target": "issue:.env:5"
+    }
+  ]
+}

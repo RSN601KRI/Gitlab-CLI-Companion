@@ -1,0 +1,97 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "repository",
+      "label": "Repository",
+      "id": "repository"
+    },
+    {
+      "type": "documentation",
+      "label": "README.md",
+      "id": "README.md"
+    },
+    {
+      "type": "documentation",
+      "label": "CONTRIBUTING.md",
+      "id": "CONTRIBUTING.md"
+    },
+    {
+      "type": "documentation",
+      "label": "ARCHITECTURE.md",
+      "id": "ARCHITECTURE.md"
+    },
+    {
+      "type": "jenkinsfile",
+      "label": "Jenkinsfile",
+      "id": "Jenkinsfile"
+    },
+    {
+      "type": "gitlab_ci",
+      "label": ".gitlab-ci.yml",
+      "id": ".gitlab-ci.yml"
+    },
+    {
+      "type": "pipeline",
+      "label": "gitlab_ci_pipeline",
+      "id": "pipeline:gitlab_ci_pipeline"
+    },
+    {
+      "type": "job",
+      "label": "build",
+      "stage": "build",
+      "id": "job:build"
+    },
+    {
+      "type": "job",
+      "label": "test",
+      "stage": "test",
+      "id": "job:test"
+    },
+    {
+      "type": "job",
+      "label": "deploy",
+      "stage": "deploy",
+      "id": "job:deploy"
+    }
+  ],
+  "links": [
+    {
+      "type": "has_documentation",
+      "source": "repository",
+      "target": "README.md"
+    },
+    {
+      "type": "has_documentation",
+      "source": "repository",
+      "target": "CONTRIBUTING.md"
+    },
+    {
+      "type": "has_documentation",
+      "source": "repository",
+      "target": "ARCHITECTURE.md"
+    },
+    {
+      "type": "migrates_to",
+      "source": "Jenkinsfile",
+      "target": "pipeline:gitlab_ci_pipeline"
+    },
+    {
+      "type": "contains",
+      "source": "pipeline:gitlab_ci_pipeline",
+      "target": "job:build"
+    },
+    {
+      "type": "contains",
+      "source": "pipeline:gitlab_ci_pipeline",
+      "target": "job:test"
+    },
+    {
+      "type": "contains",
+      "source": "pipeline:gitlab_ci_pipeline",
+      "target": "job:deploy"
+    }
+  ]
+}

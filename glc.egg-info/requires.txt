@@ -1,0 +1,7 @@
+typer
+gitpython
+requests
+networkx
+python-dotenv
+pyyaml
+rich
