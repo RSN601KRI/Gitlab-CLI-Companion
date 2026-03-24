@@ -3,6 +3,8 @@ import subprocess
 import os
 import re
 
+sys.path.append(os.path.abspath("."))
+
 # Set page config
 st.set_page_config(
     page_title="GitLab DevOps Companion",
