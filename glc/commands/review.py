@@ -11,25 +11,45 @@ def post_gitlab_comment(body):
     """
     load_dotenv()
     token = os.getenv('GITLAB_TOKEN')
-    url = os.getenv('GITLAB_URL', 'https://gitlab.com')
+    base_url = os.getenv('GITLAB_URL', 'https://gitlab.com/api/v4')
     project_id = os.getenv('GITLAB_PROJECT_ID')
     mr_iid = os.getenv('GITLAB_MR_IID')
-    
-    if not all([token, project_id, mr_iid]):
-        typer.echo("GitLab integration not configured. Set GITLAB_TOKEN, GITLAB_PROJECT_ID, GITLAB_MR_IID in .env")
+
+    if not token:
+        typer.echo("Missing GITLAB_TOKEN in .env")
         return False
-    
-    api_url = f"{url}/api/v4/projects/{project_id}/merge_requests/{mr_iid}/notes"
-    headers = {'Authorization': f'Bearer {token}'}
-    data = {'body': body}
-    
+
+    if not project_id or not mr_iid:
+        typer.echo("Missing GITLAB_PROJECT_ID or GITLAB_MR_IID in .env")
+        return False
+
+    # Ensure correct API URL
+    if not base_url.endswith('/api/v4'):
+        base_url = base_url.rstrip('/') + '/api/v4'
+
+    api_url = f"{base_url}/projects/{project_id}/merge_requests/{mr_iid}/notes"
+
+    headers = {
+        "PRIVATE-TOKEN": token
+    }
+
+    data = {
+        "body": body
+    }
+
     try:
-        response = requests.post(api_url, headers=headers, data=data)
-        response.raise_for_status()
-        typer.echo("Comment posted to GitLab MR successfully.")
-        return True
+        response = requests.post(api_url, headers=headers, json=data)
+
+        if response.status_code in [200, 201]:
+            typer.echo("Comment posted to GitLab MR successfully.")
+            return True
+        else:
+            typer.echo(f"GitLab API Error: {response.status_code}")
+            typer.echo(response.text)
+            return False
+
     except requests.exceptions.RequestException as e:
-        typer.echo(f"Failed to post comment to GitLab: {e}")
+        typer.echo(f"Failed to connect to GitLab: {e}")
         return False
 
 app = typer.Typer()

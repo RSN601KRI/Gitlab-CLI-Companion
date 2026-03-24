@@ -6,7 +6,7 @@ import re
 # Set page config
 st.set_page_config(
     page_title="GitLab DevOps Companion",
-    page_icon="🚀",
+    page_icon="",
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -18,8 +18,8 @@ def run_command(cmd):
         project_root = os.path.dirname(os.path.abspath(__file__))
         os.chdir(project_root)
         
-        # Run the command
-        result = subprocess.run(['glc', cmd], 
+        # Run using module instead of CLI
+        result = subprocess.run(['python', '-m', 'glc.main', cmd], 
                               capture_output=True, 
                               text=True, 
                               timeout=60)
@@ -34,7 +34,7 @@ def run_command(cmd):
     except subprocess.TimeoutExpired:
         return f"Command '{cmd}' timed out after 60 seconds."
     except FileNotFoundError:
-        return "Error: 'glc' command not found. Make sure it's installed."
+        return "Error: Python module not found. Ensure virtual environment is active."
     except Exception as e:
         return f"Error running command: {str(e)}"
 
@@ -62,7 +62,7 @@ def parse_health_output(output):
     return metrics
 
 # Sidebar navigation
-st.sidebar.title("🚀 GitLab DevOps Companion")
+st.sidebar.title("GitLab DevOps Companion")
 st.sidebar.markdown("---")
 
 pages = ["Home", "Problem We Solve", "Features", "Use Cases", "DevOps Dashboard", "Documentation", "About"]
@@ -71,7 +71,7 @@ page = st.sidebar.selectbox("Navigation", pages)
 # Main content based on selected page
 if page == "Home":
     # Home Page
-    st.title("🚀 GitLab DevOps Companion")
+    st.title("GitLab DevOps Companion")
     st.subheader("AI-powered DevOps co-pilot for GitLab repositories")
 
     # Short product description
@@ -82,31 +82,31 @@ if page == "Home":
 
     # Feature highlights in 3-column layout
     st.markdown("---")
-    st.subheader("🎯 Key Features")
+    st.subheader("Key Features")
 
     col1, col2, col3 = st.columns(3)
 
     with col1:
         st.markdown("""
-        ### 🔄 Pipeline Migration
+        ### Pipeline Migration
         Automatically convert Jenkins pipelines to GitLab CI/CD with intelligent parsing and job generation.
         """)
 
     with col2:
         st.markdown("""
-        ### 🔍 Security Scanning
+        ### Security Scanning
         Detect hardcoded secrets, insecure configurations, and CI/CD vulnerabilities in your repositories.
         """)
 
     with col3:
         st.markdown("""
-        ### 📊 Health Dashboard
+        ### Health Dashboard
         Real-time repository health monitoring with security scores, coverage metrics, and risk assessment.
         """)
 
     # Brief explanation of how the CLI works
     st.markdown("---")
-    st.subheader("⚙️ How It Works")
+    st.subheader("How It Works")
     st.markdown("""
     The GitLab DevOps Companion CLI provides a suite of commands to automate your DevOps workflows:
 
@@ -121,7 +121,7 @@ if page == "Home":
 
 elif page == "Problem We Solve":
     # Problem We Solve Page
-    st.title("❓ The Problems We Solve")
+    st.title("The Problems We Solve")
 
     st.markdown("""
     ### Common DevOps Challenges
@@ -130,7 +130,7 @@ elif page == "Problem We Solve":
     """)
 
     # Problems list
-    st.markdown("#### 🚨 Current Challenges:")
+    st.markdown("#### Current Challenges:")
     st.markdown("""
     - **Jenkins to GitLab migration is manual**: Converting pipelines requires extensive manual effort and expertise
     - **Documentation becomes outdated**: Repository docs quickly become stale and unmaintainable
@@ -142,22 +142,22 @@ elif page == "Problem We Solve":
     st.markdown("---")
 
     # Solution section
-    st.subheader("💡 Our Solution")
+    st.subheader("Our Solution")
     st.markdown("""
     GitLab DevOps Companion CLI automates these workflows with intelligent AI-powered tools:
 
-    - **🤖 Intelligent Migration**: AI-powered Jenkins to GitLab CI conversion with zero manual intervention
-    - **📝 Auto-Documentation**: Automatically generates and maintains comprehensive project documentation
-    - **🔒 Security First**: Automated secret detection and security scanning prevents credential exposure
-    - **🎯 Risk Assessment**: Predicts merge request impact and identifies potential deployment risks
-    - **📊 Health Monitoring**: Provides unified repository health dashboard with actionable insights
+    - **Intelligent Migration**: AI-powered Jenkins to GitLab CI conversion with zero manual intervention
+    - **Auto-Documentation**: Automatically generates and maintains comprehensive project documentation
+    - **Security First**: Automated secret detection and security scanning prevents credential exposure
+    - **Risk Assessment**: Predicts merge request impact and identifies potential deployment risks
+    - **Health Monitoring**: Provides unified repository health dashboard with actionable insights
 
     **Transform your DevOps workflow with intelligent automation.**
     """)
 
 elif page == "Features":
     # Features Page
-    st.title("✨ Features")
+    st.title("Features")
 
     st.markdown("### Comprehensive DevOps Automation Suite")
 
@@ -168,7 +168,7 @@ elif page == "Features":
         # Migration Feature
         st.markdown("""
         <div style="border: 2px solid #e1e5e9; border-radius: 10px; padding: 20px; margin: 10px 0; background-color: #f8f9fa;">
-            <h3 style="color: #ff6b35;">🔄 glc migrate</h3>
+            <h3 style="color: #ff6b35;"> glc migrate</h3>
             <p><strong>Converts Jenkins pipelines to GitLab CI</strong></p>
             <ul>
                 <li>Automated pipeline conversion</li>
@@ -182,7 +182,7 @@ elif page == "Features":
         # Documentation Feature
         st.markdown("""
         <div style="border: 2px solid #e1e5e9; border-radius: 10px; padding: 20px; margin: 10px 0; background-color: #f8f9fa;">
-            <h3 style="color: #4CAF50;">📚 glc docs</h3>
+            <h3 style="color: #4CAF50;"> glc docs</h3>
             <p><strong>Automatically generates README, CONTRIBUTING and architecture documentation</strong></p>
             <ul>
                 <li>Analyzes repository structure</li>
@@ -196,7 +196,7 @@ elif page == "Features":
         # Health Feature
         st.markdown("""
         <div style="border: 2px solid #e1e5e9; border-radius: 10px; padding: 20px; margin: 10px 0; background-color: #f8f9fa;">
-            <h3 style="color: #2196F3;">❤️ glc health</h3>
+            <h3 style="color: #2196F3;"> glc health</h3>
             <p><strong>Provides a repository health dashboard</strong></p>
             <ul>
                 <li>Security score monitoring</li>
@@ -211,7 +211,7 @@ elif page == "Features":
         # Security Scan Feature
         st.markdown("""
         <div style="border: 2px solid #e1e5e9; border-radius: 10px; padding: 20px; margin: 10px 0; background-color: #f8f9fa;">
-            <h3 style="color: #f44336;">🔍 glc scan</h3>
+            <h3 style="color: #f44336;"> glc scan</h3>
             <p><strong>Scans the repository for secrets and insecure configurations</strong></p>
             <ul>
                 <li>Detects hardcoded secrets</li>
@@ -225,7 +225,7 @@ elif page == "Features":
         # Review Feature
         st.markdown("""
         <div style="border: 2px solid #e1e5e9; border-radius: 10px; padding: 20px; margin: 10px 0; background-color: #f8f9fa;">
-            <h3 style="color: #FF9800;">🎯 glc review</h3>
+            <h3 style="color: #FF9800;"> glc review</h3>
             <p><strong>Analyzes code changes and predicts risk</strong></p>
             <ul>
                 <li>Evaluates merge request impact</li>
@@ -238,12 +238,12 @@ elif page == "Features":
 
 elif page == "Use Cases":
     # Use Cases Page
-    st.title("🎯 Use Cases")
+    st.title("Use Cases")
 
     st.markdown("### How Different Teams Benefit")
 
     # DevOps Engineers
-    st.subheader("👨‍💻 For DevOps Engineers")
+    st.subheader("For DevOps Engineers")
     st.markdown("""
     - **Automated Migrations**: Quickly migrate legacy Jenkins pipelines to GitLab CI
     - **Security Automation**: Continuous security scanning and compliance checks
@@ -252,7 +252,7 @@ elif page == "Use Cases":
     """)
 
     # Development Teams
-    st.subheader("👥 For Development Teams")
+    st.subheader("For Development Teams")
     st.markdown("""
     - **Risk Assessment**: Understand the impact of code changes before merging
     - **Security Awareness**: Early detection of security issues in development
@@ -261,7 +261,7 @@ elif page == "Use Cases":
     """)
 
     # Open Source Maintainers
-    st.subheader("🌟 For Open Source Maintainers")
+    st.subheader("For Open Source Maintainers")
     st.markdown("""
     - **Contributor Onboarding**: Automated documentation generation
     - **Security Compliance**: Regular security scans for public repositories
@@ -270,7 +270,7 @@ elif page == "Use Cases":
     """)
 
     # Security Teams
-    st.subheader("🔒 For Security Teams")
+    st.subheader("For Security Teams")
     st.markdown("""
     - **Secret Detection**: Automated scanning for exposed credentials
     - **Risk Assessment**: Evaluate security impact of code changes
@@ -280,10 +280,10 @@ elif page == "Use Cases":
 
 elif page == "DevOps Dashboard":
     # DevOps Dashboard Page
-    st.title("📊 DevOps Dashboard")
+    st.title("DevOps Dashboard")
 
     # Repository Health Overview
-    st.header("📈 Repository Health Overview")
+    st.header("Repository Health Overview")
 
     with st.spinner("Loading repository health..."):
         health_output = run_command("health")
@@ -293,19 +293,19 @@ elif page == "DevOps Dashboard":
     col1, col2, col3, col4 = st.columns(4)
 
     with col1:
-        st.metric("🔒 Security Score", health_metrics['Security Score'])
+        st.metric("Security Score", health_metrics['Security Score'])
 
     with col2:
-        st.metric("📚 Doc Coverage", health_metrics['Doc Coverage'])
+        st.metric("Doc Coverage", health_metrics['Doc Coverage'])
 
     with col3:
-        st.metric("🔧 Pipeline Status", health_metrics['Pipeline Status'])
+        st.metric("Pipeline Status", health_metrics['Pipeline Status'])
 
     with col4:
-        st.metric("⚠️ MR Risk Level", health_metrics['MR Risk Level'])
+        st.metric("MR Risk Level", health_metrics['MR Risk Level'])
 
     # DevOps Automation Controls
-    st.header("⚙️ DevOps Automation Controls")
+    st.header("DevOps Automation Controls")
 
     # Create columns for buttons
     col1, col2, col3, col4, col5 = st.columns(5)
@@ -349,7 +349,7 @@ elif page == "DevOps Dashboard":
                 st.session_state.output = run_command("review")
 
     # Output section
-    st.header("📋 Command Output")
+    st.header("Command Output")
 
     if st.session_state.output:
         st.code(st.session_state.output, language="text")
@@ -358,9 +358,9 @@ elif page == "DevOps Dashboard":
 
 elif page == "Documentation":
     # Documentation Page
-    st.title("📚 Documentation")
+    st.title("Documentation")
 
-    st.header("🚀 Getting Started")
+    st.header("Getting Started")
 
     st.subheader("Installation")
     st.code("""
@@ -450,7 +450,7 @@ Recommendations:
 
 elif page == "About":
     # About Page
-    st.title("ℹ️ About")
+    st.title("About")
 
     st.markdown("""
     ### GitLab DevOps Companion
@@ -462,7 +462,7 @@ elif page == "About":
     by providing automated solutions to common challenges in modern software development.
     """)
 
-    st.header("🏗️ Architecture Overview")
+    st.header("Architecture Overview")
 
     st.markdown("""
     The system is built around a modular architecture with a knowledge graph at its core,
@@ -486,7 +486,7 @@ graph TD
     G --> K[Risk Assessment]
     """, language="mermaid")
 
-    st.header("🛠️ Tech Stack")
+    st.header("Tech Stack")
 
     col1, col2 = st.columns(2)
 
@@ -516,28 +516,28 @@ graph TD
         - Rich for terminal UI enhancements
         """)
 
-    st.header("🗺️ Future Roadmap")
+    st.header("Future Roadmap")
 
     st.markdown("""
     **Phase 1 (Current) - Foundation:**
-    - ✅ Core CLI tool with essential DevOps commands
-    - ✅ Knowledge graph implementation for repository intelligence
-    - ✅ Streamlit web dashboard for interactive operations
-    - ✅ GitLab CI/CD integration and pipeline management
+    - Core CLI tool with essential DevOps commands
+    - Knowledge graph implementation for repository intelligence
+    - Streamlit web dashboard for interactive operations
+    - GitLab CI/CD integration and pipeline management
 
     **Phase 2 (Next) - Enhancement:**
-    - 🔄 Multi-repository support and cross-project analysis
-    - 🔄 Advanced AI analysis with machine learning predictions
-    - 🔄 Custom rule engines for organization-specific policies
-    - 🔄 Team collaboration features and shared dashboards
-    - 🔄 Integration with additional CI/CD platforms
+    - Multi-repository support and cross-project analysis
+    - Advanced AI analysis with machine learning predictions
+    - Custom rule engines for organization-specific policies
+    - Team collaboration features and shared dashboards
+    - Integration with additional CI/CD platforms
 
     **Phase 3 (Future) - Intelligence:**
-    - 🤖 ML-powered deployment risk predictions
-    - 🤖 Auto-remediation for detected issues
-    - 🤖 Enterprise integrations and SSO support
-    - 🤖 Advanced security scanning with threat intelligence
-    - 🤖 Predictive analytics for development workflows
+    - ML-powered deployment risk predictions
+    - Auto-remediation for detected issues
+    - Enterprise integrations and SSO support
+    - Advanced security scanning with threat intelligence
+    - Predictive analytics for development workflows
     """)
 
 # Footer
