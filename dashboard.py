@@ -17,29 +17,24 @@ st.set_page_config(
 def run_command(cmd):
     """Run a glc command and return the output."""
     try:
-        # Ensure we're in the correct directory (project root)
         project_root = os.path.dirname(os.path.abspath(__file__))
-        os.chdir(project_root)
         
-        # Run using module instead of CLI
-        result = subprocess.run(['python', '-m', 'glc.main', cmd], 
-                              capture_output=True, 
-                              text=True, 
-                              timeout=60)
-        
-        # Combine stdout and stderr
+        result = subprocess.run(
+            ['python', '-m', 'glc.main', cmd],  # ✅ FIXED
+            capture_output=True,
+            text=True,
+            cwd=project_root,
+            timeout=60
+        )
+
         output = result.stdout
         if result.stderr:
             output += "\n--- STDERR ---\n" + result.stderr
-            
+
         return output
-        
-    except subprocess.TimeoutExpired:
-        return f"Command '{cmd}' timed out after 60 seconds."
-    except FileNotFoundError:
-        return "Error: Python module not found. Ensure virtual environment is active."
+
     except Exception as e:
-        return f"Error running command: {str(e)}"
+        return f"Error: {str(e)}"
 
 def parse_health_output(output):
     """Parse glc health output and extract metrics."""
