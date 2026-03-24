@@ -2,6 +2,7 @@ import streamlit as st
 import subprocess
 import os
 import re
+import sys   # ✅ ADD THIS
 
 sys.path.append(os.path.abspath("."))
 
