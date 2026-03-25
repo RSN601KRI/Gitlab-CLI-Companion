@@ -1,5 +1,4 @@
-# GitLab DevOps Companion CLI (glc)
-
+<h1 align="center">GitLab DevOps Companion CLI (glc)</h1>
 <p align="center">
   <b>AI-powered DevOps Co-pilot for Migration, Security, Docs & Code Review</b>
 </p>
@@ -64,7 +63,7 @@ Auto-generate:
 
 ### MR Intelligence
 
-* Analyze code changes
+* Analyse code changes
 * Predict impact
 * Calculate blast radius
 * Post insights directly to GitLab
@@ -169,7 +168,7 @@ dashboard.py         # Streamlit UI
 ## 🎥 Demo (Add Your Video Here)
 
 ```md
-[![Watch Demo](https://img.youtube.com/vi/YOUR_VIDEO_ID/0.jpg)](https://youtu.be/YOUR_VIDEO_ID)
+Watch Demo: https://vimeo.com/1176809996?share=copy&fl=sv&fe=ci
 ```
 
 ## Support
@@ -179,9 +178,3 @@ If you like this project:
 * Star the repo
 * Fork it
 * Contribute ideas
-
-## License
-
-MIT License
-
-````
